@@ -20,6 +20,8 @@ package com.example.simplerssreader;
 
 public class MainActivity extends AppCompatActivity {
 
+    //MODIFICHETTA
+
     private RecyclerView mRecyclerView;
     private EditText mEditText;
     private Button mFetchFeedButton;
