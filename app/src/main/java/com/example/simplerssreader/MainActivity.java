@@ -8,6 +8,7 @@ package com.example.simplerssreader;
         import android.content.BroadcastReceiver;
         import android.content.Context;
         import android.content.Intent;
+        import android.content.IntentFilter;
         import android.os.Bundle;
         import android.view.View;
         import android.widget.Button;
@@ -47,24 +48,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(new RssFeedListAdapter2(mFeedModelList));
 
         mController = new Controller();
-        mController.setOnRssReceivedListener(MainActivity.this, new Controller.OnRssReceivedListener() {
-            @Override
-            public void onRssReceived(RSSFeed feed) {
-                mSwipeLayout.setRefreshing(true);
-                mFeedModelList = feed.getArticleList();
-
-                for (Article article : mFeedModelList) {
-
-                    System.out.println("Title: " + article.getTitle() + " Link: " + article.getLink());
-                    mFeedTitleTextView.setText("Feed Title: " + article.getTitle());
-                    mFeedDescriptionTextView.setText("Feed Description: " + article.getDescription());
-                    mFeedLinkTextView.setText("Feed Link: " + article.getLink());
-                }
-                // Fill RecyclerView
-                mRecyclerView.setAdapter(new RssFeedListAdapter2(mFeedModelList));
-                mSwipeLayout.setRefreshing(false);
-            }
-        });
+        mController.setContext(MainActivity.this);
         mFetchFeedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,11 +61,44 @@ public class MainActivity extends AppCompatActivity {
                 mController.start(mEditText.getText().toString());
             }
         });
-        BroadcastReceiver br = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
 
+
+    }
+
+    BroadcastReceiver br = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            System.out.println("************sono nell'onReceive**************");
+
+            mSwipeLayout.setRefreshing(true);
+            RSSFeed feed = (RSSFeed) intent.getSerializableExtra("RssFeed");
+            mFeedModelList = feed.getArticleList();
+
+            for (Article article : mFeedModelList) {
+
+                System.out.println("Title: " + article.getTitle() + " Link: " + article.getLink());
+                mFeedTitleTextView.setText("Feed Title: " + article.getTitle());
+                mFeedDescriptionTextView.setText("Feed Description: " + article.getDescription());
+                mFeedLinkTextView.setText("Feed Link: " + article.getLink());
             }
-        };
+            // Fill RecyclerView
+            mRecyclerView.setAdapter(new RssFeedListAdapter2(mFeedModelList));
+            mSwipeLayout.setRefreshing(false);
+        }
+    };
+
+    @Override
+    protected void onStart () {
+        super.onStart();
+        System.out.println("************sono nell'onStart**************");
+        IntentFilter filter = new IntentFilter("com.example.AVVIA_CONTROLLER");
+        registerReceiver(br, filter);
+    }
+
+    @Override
+    protected void onStop () {
+        super.onStop();
+        unregisterReceiver(br);
+
     }
 }

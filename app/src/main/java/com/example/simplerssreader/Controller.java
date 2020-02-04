@@ -1,5 +1,6 @@
 package com.example.simplerssreader;
 
+import android.content.Intent;
 import android.widget.Toast;
 
 import retrofit2.Call;
@@ -12,9 +13,6 @@ public class Controller implements Callback<RSSFeed>{
 
     private String urlLink;
     MainActivity context;
-
-    private OnRssReceivedListener listener;
-
 
     public void start(String urlLink) {
 
@@ -40,11 +38,9 @@ public class Controller implements Callback<RSSFeed>{
         if (response.isSuccessful()) {
             RSSFeed rss = response.body();
             System.out.println("Channel title: " + rss.getChannelTitle());
-
-            if (listener != null)
-                listener.onRssReceived(rss);
-
-
+            Intent intent = new Intent("com.example.AVVIA_CONTROLLER");
+            intent.putExtra("RssFeed", rss);
+            context.sendBroadcast(intent);
         }
         else {
             Toast.makeText(context, "Enter a valid Rss feed url", Toast.LENGTH_LONG).show();
@@ -58,14 +54,8 @@ public class Controller implements Callback<RSSFeed>{
     }
 
 
-    public void setOnRssReceivedListener(MainActivity context, OnRssReceivedListener listener) {
-        this.listener = listener;
+    public void setContext(MainActivity context) {
         this.context = context;
-    }
-
-
-    public interface OnRssReceivedListener {
-        void onRssReceived (RSSFeed feed);
     }
 
 }
