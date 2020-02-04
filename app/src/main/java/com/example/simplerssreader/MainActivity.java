@@ -21,6 +21,7 @@ package com.example.simplerssreader;
 public class MainActivity extends AppCompatActivity {
 
     //MODIFICHETTA
+    //MODIFICHETTA2
 
     private RecyclerView mRecyclerView;
     private EditText mEditText;
