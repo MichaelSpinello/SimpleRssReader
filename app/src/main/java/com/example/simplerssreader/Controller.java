@@ -31,7 +31,7 @@ public class Controller implements Callback<RSSFeed>{
         Call<RSSFeed> call = rssAPI.loadRSSFeed(resto_url);
         call.enqueue(this);
     }
-
+//ciao
 
     @Override
     public void onResponse(Call<RSSFeed> call, Response<RSSFeed> response) {

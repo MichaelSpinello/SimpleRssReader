@@ -10,6 +10,7 @@ import org.simpleframework.xml.Root;
 
 @Root(name="rss", strict=false)
 public class RSSFeed implements Serializable {
+    static final long serialVersionUID = 42L;
 
     @Element(name="title")
     @Path("channel")
