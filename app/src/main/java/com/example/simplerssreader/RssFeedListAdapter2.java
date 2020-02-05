@@ -40,7 +40,6 @@ class RssFeedListAdapter2 extends RecyclerView.Adapter <RssFeedListAdapter2.Feed
         ((TextView)holder.rssFeedView.findViewById(R.id.descriptionText)).setText(rssArticle.getDescription());
         ((TextView)holder.rssFeedView.findViewById(R.id.linkText)).setText(rssArticle.getLink());
     }
-
     @Override
     public int getItemCount(){
         return mArticles.size();

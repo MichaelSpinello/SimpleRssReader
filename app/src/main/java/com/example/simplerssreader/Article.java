@@ -8,6 +8,7 @@ import java.util.List;
 
 @Root(name = "item", strict = false)
 public class Article implements Serializable {
+    static final long serialVersionUID = 42L;
 
     @Element(name = "title")
     private String title;
