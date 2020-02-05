@@ -3,10 +3,12 @@ package com.example.simplerssreader;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Root(name = "item", strict = false)
-public class Article {
+public class Article implements Serializable {
+    static final long serialVersionUID = 42L;
 
     @Element(name = "title")
     private String title;

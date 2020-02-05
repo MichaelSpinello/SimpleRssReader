@@ -1,5 +1,6 @@
 package com.example.simplerssreader;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.simpleframework.xml.Element;
@@ -8,7 +9,8 @@ import org.simpleframework.xml.Path;
 import org.simpleframework.xml.Root;
 
 @Root(name="rss", strict=false)
-public class RSSFeed {
+public class RSSFeed implements Serializable {
+    static final long serialVersionUID = 42L;
 
     @Element(name="title")
     @Path("channel")
@@ -33,5 +35,7 @@ public class RSSFeed {
     public void setArticleList(List<Article> articleList) {
         this.articleList = articleList;
     }
+
+
 
 }
