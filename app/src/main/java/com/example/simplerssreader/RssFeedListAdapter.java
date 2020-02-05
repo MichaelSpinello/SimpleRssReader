@@ -20,7 +20,12 @@ class RssFeedListAdapter extends RecyclerView.Adapter <RssFeedListAdapter.FeedMo
             rssFeedView = v;
         }
     }
-    
+
+
+   /* public RssFeedListAdapter(List <Article> rssFeedModels){
+        mRssFeedModels = rssFeedModels;
+    }*/
+
 
     @Override
     public FeedModelViewHolder onCreateViewHolder (ViewGroup parent, int type){
